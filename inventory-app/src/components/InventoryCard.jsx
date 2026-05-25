@@ -1,30 +1,47 @@
 function InventoryCard({ item }) {
+    const productName = item.product_variants?.products?.name || "unknowon Product"
+    const variantName = item.product_variants?.name || "No Variants"
+    const storeName = item.stores?.name || "No Store"
+
+    function getQuantityColor(quantity) {
+        if (quantity >= 4) return 'green'
+        if (quantity >= 2) return 'goldenrod'
+        return 'red'
+    }
     return ( 
         <div style={{
-            border: '1px solid gray',
-            padding: 15,
-            marginBottom: 10,
-            borderRadius: 8,
-            backgroundColor: '#f5f5f5'
+            border: '1px solid #ddd',
+            padding: 16,
+            marginBottom: 12,
+            borderRadius: 10,
+            backgroundColor: '#fafafa'
         }}
     >
-        <h3>
-            {item.product_variants?.products?.name}
+        {/* Top: product */}
+        <h3 style={{ marginBottom: 6 }}>
+            {productName}
         </h3>
 
-        <p>
+        {/* MID: context info*/}
+        <p style={{ margin: 0 }}>
             <strong>Variant:</strong> {item.product_variants?.name}
         </p>
 
-        <p>
+        <p style={{ marginTop: 4 }}>
             <strong>Store:</strong> {item.stores?.name}
         </p>
 
-        <p>
-            <strong>Quantity:</strong> {item.quantity}
+        <hr style={{ margin: '12px 0' }} />
+        
+        {/* BOTTOM: Inventory status rom */}
+        <p style={{ margin: 0 }}>
+            <strong>Quantity:</strong> {' '}
+            <span style={{ color: getQuantityColor(item.quantity), fontWeight: 'bold' }}>
+                {item.quantity}
+            </span>
         </p>
 
-        <p>
+        <p style={{ marginTop: 6 }}>
             <strong>Status:</strong> {item.status}
         </p>
     </div>
