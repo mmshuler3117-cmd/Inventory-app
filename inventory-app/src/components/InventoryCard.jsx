@@ -1,5 +1,5 @@
-function InventoryCard({ item }) {
-    const productName = item.product_variants?.products?.name || "unknowon Product"
+function InventoryCard({ item, onDelete }) {
+    const productName = item.product_variants?.products?.name || "Unknown Product"
     const variantName = item.product_variants?.name || "No Variants"
     const storeName = item.stores?.name || "No Store"
 
@@ -15,8 +15,17 @@ function InventoryCard({ item }) {
             marginBottom: 12,
             borderRadius: 10,
             backgroundColor: '#fafafa'
-        }}
-    >
+        }}>
+        
+        <button
+            onClick={() => {
+                console.log("DELETE CLICKED", item.id)
+                onDelete?.(item.id)
+            }}
+        >
+            Delete
+        </button>
+
         {/* Top: product */}
         <h3 style={{ marginBottom: 6 }}>
             {productName}
@@ -44,8 +53,12 @@ function InventoryCard({ item }) {
         <p style={{ marginTop: 6 }}>
             <strong>Status:</strong> {item.status}
         </p>
-    </div>
+        </div>
     )
+
 }
+
+
+
 
 export default InventoryCard
